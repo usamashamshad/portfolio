@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-white antialiased overflow-x-hidden;
+    cursor: none;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-accent/40 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent/70;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 py-28 relative;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-3 tracking-tight;
+  }
+
+  .section-subtitle {
+    @apply text-muted text-lg md:text-xl mb-14 max-w-2xl;
+  }
+
+  .glass {
+    @apply bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08];
+  }
+
+  .glass-strong {
+    @apply bg-white/[0.06] backdrop-blur-3xl border border-white/[0.12];
+  }
+
+  .card {
+    @apply glass rounded-2xl p-6 transition-all duration-500;
+  }
+
+  .card-interactive {
+    @apply card hover:border-accent/30 hover:bg-white/[0.05] hover:shadow-[0_0_40px_rgba(0,229,176,0.08)] hover:-translate-y-1;
+  }
+
+  .tag {
+    @apply inline-block px-3 py-1 text-xs font-medium rounded-full bg-accent/10 text-accent border border-accent/20;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent via-cyan to-violet bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient;
+  }
+
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(#0c0c14, #0c0c14) padding-box,
+      linear-gradient(135deg, rgba(0, 229, 176, 0.5), rgba(124, 58, 237, 0.5), rgba(6, 182, 212, 0.5)) border-box;
+    border: 1px solid transparent;
+  }
+
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      #9494a8 0%,
+      #ffffff 50%,
+      #9494a8 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+  }
+
+  .noise-overlay::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  .spotlight-card {
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spotlight-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(0, 229, 176, 0.08),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
